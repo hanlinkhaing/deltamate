@@ -15417,7 +15417,7 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
 
                 // Make sure that the last tick include max
                 if (last < max) {
-                    last.add(1, minor);
+                    last.addWorkStandard(1, minor);
                 }
 
                 time = moment(first);
@@ -15427,10 +15427,10 @@ jQuery.Velocity ? console.log("Velocity is already loaded. You may be needlessly
                     // we first aligned time on the previous `major` unit then add the number of full
                     // stepSize there is between first and the previous major time.
                     time.startOf(major);
-                    time.add(~~((first - time) / (interval.size * stepSize)) * stepSize, minor);
+                    time.addWorkStandard(~~((first - time) / (interval.size * stepSize)) * stepSize, minor);
                 }
 
-                for (; time < last; time.add(stepSize, minor)) {
+                for (; time < last; time.addWorkStandard(stepSize, minor)) {
                     ticks.push(+time);
                 }
 
@@ -16718,7 +16718,7 @@ var _this = void 0;
         var $labelAndIcon = $input.siblings('label, i');
         var hasValue = $input.val().length;
         var hasPlaceholder = $input.attr('placeholder');
-        var addOrRemove = "".concat(hasValue || hasPlaceholder ? 'add' : 'remove', "Class");
+        var addOrRemove = "".concat(hasValue || hasPlaceholder ? 'addWorkStandard.html' : 'remove', "Class");
         $labelAndIcon[addOrRemove]('active');
     };
 

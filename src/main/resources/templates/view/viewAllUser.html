@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="./layout/mainLayout.html">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <div layout:fragment="context">
+        <div class="container mt-5 pt-5">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID No     </th>
+                    <th>Name           </th>
+                    <th>Role           </th>
+                    <th>Company        </th>
+                    <th>Phone          </th>
+                    <th>Mail           </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user, userStat: ${users}">
+                    <td th:text="*{user.userID}"></td>
+                    <td th:text="*{user.name}"></td>
+                    <td th:text="*{user.roles[0].name}"></td>
+                    <td th:text="*{user.company}"></td>
+                    <td th:text="*{user.phone}"></td>
+                    <td th:text="*{user.mail}"></td>
+                    <td><a class="btn-sm btn-primary" th:href="@{'/users/editUser/'+${user.userID}}">Edit</a></td>
+                    <td><a class="btn-sm btn-danger" th:href="@{'/users/removeUser/'+${user.userID}}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

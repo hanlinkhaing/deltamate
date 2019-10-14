@@ -14178,7 +14178,7 @@
 
                 // Make sure that the last tick include max
                 if (last < max) {
-                    last.add(1, minor);
+                    last.addWorkStandard(1, minor);
                 }
 
                 time = moment(first);
@@ -14188,10 +14188,10 @@
                     // we first aligned time on the previous `major` unit then add the number of full
                     // stepSize there is between first and the previous major time.
                     time.startOf(major);
-                    time.add(~~((first - time) / (interval.size * stepSize)) * stepSize, minor);
+                    time.addWorkStandard(~~((first - time) / (interval.size * stepSize)) * stepSize, minor);
                 }
 
-                for (; time < last; time.add(stepSize, minor)) {
+                for (; time < last; time.addWorkStandard(stepSize, minor)) {
                     ticks.push(+time);
                 }
 

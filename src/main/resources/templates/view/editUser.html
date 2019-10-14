@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="./layout/mainLayout.html">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div layout:fragment="context">
+    <div class="container mt-5 pt-5">
+        <div class="mt-2">
+            <h3 class="blue-text font-weight-bold font-italic">User Edit Form</h3>
+        </div>
+        <form action="#" th:action="@{/users/editUser}" th:object="${user}" method="post">
+            <div class="form-group row mt-5">
+                <lable for="role" class="col-sm-3 col-form-label">User Role</lable>
+                <div class="col-sm-9">
+                    <select name="role" id="role"
+                            th:field="*{roles[0].name}" class="form-control">
+                        <option th:each="role:${roles}"
+                                th:value="${role.name}" th:text="${role.name}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label for="userID" class="col-sm-3 col-form-label">ID No</label>
+                <div class="col-sm-9">
+                    <input type="text" th:field="*{userID}" class="form-control"
+                           id="userID" readonly="readonly"
+                           placeholder="ID No">
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label for="name" class="col-sm-3 col-form-label">Name</label>
+                <div class="col-sm-9">
+                    <input type="text" th:field="*{name}" class="form-control"
+                           id="name"
+                           placeholder="Name">
+                    <small th:if="${#fields.errors('name')}" th:errors="*{name}" class="form-text text-danger"></small>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label for="phone" class="col-sm-3 col-form-label">Phone No</label>
+                <div class="col-sm-9">
+                    <input type="text" th:field="*{phone}" class="form-control"
+                           id="phone"
+                           placeholder="Phone No">
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label for="mail" class="col-sm-3 col-form-label">Mail</label>
+                <div class="col-sm-9">
+                    <input type="text" th:field="*{mail}" class="form-control"
+                           id="mail"
+                           placeholder="Mail">
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label for="company" class="col-sm-3 col-form-label">Company</label>
+                <div class="col-sm-9">
+                    <input type="text" th:field="*{company}" class="form-control"
+                           id="company"
+                           placeholder="Company">
+                    <small th:if="${#fields.errors('company')}" th:errors="*{company}" class="form-text text-danger"></small>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label for="password" class="col-sm-3 col-form-label">Password</label>
+                <div class="col-sm-9">
+                    <input type="password" th:field="*{password}" class="form-control"
+                           id="password"
+                           placeholder="Password">
+                    <small th:if="${#fields.errors('password')}" th:errors="*{password}" class="form-text text-danger"></small>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label for="confirmPassword" class="col-sm-3 col-form-label">Confirm Password</label>
+                <div class="col-sm-9">
+                    <input type="password" th:field="*{confirmPassword}" class="form-control"
+                           id="confirmPassword"
+                           placeholder="Confirm Password">
+                    <small class="form-text text-danger" id="confirmPasswordError"></small>
+                    <small th:if="${#fields.errors('confirmPassword')}" th:errors="*{confirmPassword}" class="form-text text-danger"></small>
+                </div>
+            </div>
+
+            <div class="from-group row mt-3">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary btn-block" onclick="return userPasswordMatching()">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

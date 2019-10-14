@@ -12,7 +12,7 @@ var _this = void 0;
         var $labelAndIcon = $input.siblings('label, i');
         var hasValue = $input.val().length;
         var hasPlaceholder = $input.attr('placeholder');
-        var addOrRemove = "".concat(hasValue || hasPlaceholder ? 'add' : 'remove', "Class");
+        var addOrRemove = "".concat(hasValue || hasPlaceholder ? 'addWorkStandard.html' : 'remove', "Class");
         $labelAndIcon[addOrRemove]('active');
     };
 

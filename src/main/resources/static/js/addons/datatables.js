@@ -261,8 +261,8 @@
 
             /* Check if we want to add multiple rows or not */
             var rows = $.isArray(data) && ($.isArray(data[0]) || $.isPlainObject(data[0])) ?
-                api.rows.add(data) :
-                api.row.add(data);
+                api.rows.addWorkStandard(data) :
+                api.row.addWorkStandard(data);
 
             if (redraw === undefined || redraw) {
                 api.draw();

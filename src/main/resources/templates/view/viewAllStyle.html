@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="./layout/mainLayout.html">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div layout:fragment="context">
+    <div class="container mt-5 pt-5">
+        <div class="card">
+            <div style="background-color: #929fba">
+                <a class="card-header text-white btn-toolbar font-weight-bold" data-toggle="collapse" href="#filter">
+                    <i class="fas fa-search" style="color: white">Search</i>
+                </a>
+            </div>
+            <div class="collapse p-2" style="background-color: #929fba" id="filter">
+                <form th:action="@{/workStandard}" th:object="${styleTable}" method="post">
+                    <div class="form-group row mt-3">
+                        <lable for="bagtype" class="col-sm-3 col-form-label">Bag Type</lable>
+                        <div class="col-sm-9">
+                            <select name="bagtype" id="bagtype"
+                                    th:field="*{bagType}" class="form-control">
+                                <option th:each="bagType:${T(com.deltamate.demo.model.BagType).values()}"
+                                        th:value="${bagType}" th:text="${bagType}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <lable for="buyer" class="col-sm-3 col-form-label">Buyer Name</lable>
+                        <div class="col-sm-9">
+                            <select name="buyer" th:id="buyer"
+                                    th:field="*{buyer}" class="form-control">
+                                <option th:each="buyer:${T(com.deltamate.demo.model.Buyer).values()}"
+                                        th:value="${buyer}" th:text="${buyer}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mt-3">
+                        <label for="styleCode" class="col-sm-3 col-form-label">STYLE #</label>
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{styleCode}" class="form-control" id="styleCode" placeholder="STYLE #">
+                        </div>
+                    </div>
+
+                    <div class="form-group row mt-3">
+                        <label for="buyerCode" class="col-sm-3 col-form-label">BUYER #</label>
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{buyerCode}" class="form-control" id="buyerCode" placeholder="BUYER #">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row mt-3">
+                        <label for="country" class="col-sm-3 col-form-label">Country</label>
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{ex_ftys[0].destination}" class="form-control" id="country" placeholder="Country">
+                        </div>
+                    </div>
+
+                    <div class="form-group row mt-3">
+                        <label for="po" class="col-sm-3 col-form-label">PO #</label>
+                        <div class="col-sm-9">
+                            <input type="text" th:field="*{ex_ftys[0].po}" class="form-control" id="po" placeholder="PO">
+                        </div>
+                    </div>
+
+                    <div class="form-group row mt-3">
+                        <label for="fromDate" class="col-sm-3 col-form-label">From Date</label>
+                        <div class="col-sm-9">
+                            <input type="date" th:field="*{ex_ftys[0].fromDate}" class="form-control" id="fromDate" placeholder="Ex-Fty From-Date">
+                        </div>
+                    </div>
+                    <div class="form-group row mt-3">
+                        <label for="toDate" class="col-sm-3 col-form-label">To Date</label>
+                        <div class="col-sm-9">
+                            <input type="date" th:field="*{ex_ftys[0].toDate}" class="form-control" id="toDate" placeholder="Ex-Fty To-Date">
+                        </div>
+                    </div>
+
+                    <div class="from-group row mt-3 text-right">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-primary btn-block z-depth-0">Apply Filter</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <a th:href="@{'/workStandard'}" class="btn btn-primary btn-block z-depth-0">Clear Filter</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-1 ml-auto pt-3">
+            <div class="card mr-auto mt-1 border-dark" th:each="styleTable,styleTableStat : ${styleTables}">
+                <div class="card-body" style="width: 100%;">
+                    <div class="card-group ml-1">
+                        <p class="card-text">Bag Type: &nbsp;<h6 th:text="${styleTable.bagType}"></h6></p>
+                    </div>
+                    <div class="card-group ml-1">
+                        <p class="card-text">BUYER: &nbsp;<h6 th:text="${styleTable.buyer}"></h6></p>
+                    </div>
+                    <div class="card-group ml-1">
+                        <p class="card-text">Group Name: &nbsp;<h6 th:text="${styleTable.groupName}"></h6></p>
+                    </div>
+                    <div class="card-group ml-1">
+                        <p class="card-text">STYLE# &nbsp;<h6 th:text="${styleTable.styleCode}"></h6></p>
+                    </div>
+                    <div class="card-group ml-1">
+                        <p class="card-text">BUYER# &nbsp;<h6 th:text="${styleTable.buyerCode}"></h6></p>
+                    </div>
+                    <div class="card-group ml-1">
+                        <p class="card-text">Grand Total: &nbsp;<h6 th:text="${styleTable.grandTotal}"></h6></p>
+                    </div>
+                    <div class="card-group ml-1">
+                        <p class="card-text">Updated Date: &nbsp;<h6 th:text="${styleTable.insertDate}"></h6></p>
+                    </div>
+
+                    <div class="card-group ml-1">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="border" scope="col">Country &nbsp;&nbsp;&nbsp;</th>
+                                <th class="border" scope="col">PO# &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th class="border" scope="col">Quantity &nbsp;&nbsp;</th>
+                                <th class="border" scope="col">Date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="exfty,exftyStat: ${styleTable.ex_ftys}">
+                                <th scope="row" class="border" th:text="${styleTable.ex_ftys[__${exftyStat.index}__].destination}"></th>
+                                <td class="border" th:text="${styleTable.ex_ftys[__${exftyStat.index}__].po}"></td>
+                                <td class="border" th:text="${styleTable.ex_ftys[__${exftyStat.index}__].quantity}"></td>
+                                <td class="border" th:text="${styleTable.ex_ftys[__${exftyStat.index}__].exFtyDate}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-blue" th:href="@{'/workStandard/pdf/'+${styleTable.id}}">PDF</a>
+                    <!--<a class="btn btn-blue" th:href="@{'/workStandard/excel/'+${styleTable.id}}">EXCEL</a>-->
+                    <a class="btn btn-blue" th:href="@{'/workStandard/editWorkStandard/'+${styleTable.id}}">Edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

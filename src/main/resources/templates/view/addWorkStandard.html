@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="./layout/mainLayout.html">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<div layout:fragment="context">
+    <div class="container pt-5">
+        <div class="sticky-top text-right bg-transparent">
+            <button type="button" id="addExFty" class="btn btn-blue mt-5">Add New Line To Ex-Fty</button>
+        </div>
+        <div class="mt-2">
+            <h3 class="blue-text font-weight-bold font-italic">WorkStandard Input Form</h3>
+            <small class="form-text text-danger" id="workStandardError"></small>
+        </div>
+        <fieldset id="exftyList">
+        <form id="workStandardForm" action="#" th:action="@{/workStandard/addWorkStandard}" th:object="${workStandard}" method="post" enctype="multipart/form-data">
+            <div class="form-group row mt-5">
+                <lable for="bagtype" class="col-sm-3 col-form-label">Bag Type</lable>
+                <div class="col-sm-9">
+                    <select name="bagtype" id="bagtype"
+                            th:field="*{styleTable.bagType}" class="form-control">
+                        <option th:each="bagType:${T(com.deltamate.demo.model.BagType).values()}"
+                                th:value="${bagType}" th:text="${bagType}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row mt-3">
+                <lable for="buyer" class="col-sm-3 col-form-label">Buyer Name</lable>
+                <div class="col-sm-9">
+                    <select name="buyer" th:id="buyer"
+                            th:field="*{styleTable.buyer}" class="form-control">
+                        <option th:each="buyer:${T(com.deltamate.demo.model.Buyer).values()}"
+                                th:value="${buyer}" th:text="${buyer}"></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label for="groupName" class="col-sm-3 col-form-label">GROUP NAME<a class="red-text">*</a></label>
+                <div class="col-sm-9">
+                    <input type="text" th:field="*{styleTable.groupName}" class="form-control"
+                           id="groupName"
+                           placeholder="GROUP NAME">
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label for="styleCode" class="col-sm-3 col-form-label">STYLE #<a class="red-text">*</a></label>
+                <div class="col-sm-9">
+                    <input type="text" th:field="*{styleTable.styleCode}" class="form-control"
+                           id="styleCode"
+                           placeholder="STYLE #">
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label for="buyerCode" class="col-sm-3 col-form-label">BUYER #<a class="red-text">*</a></label>
+                <div class="col-sm-9">
+                    <input type="text" th:field="*{styleTable.buyerCode}" class="form-control"
+                           id="buyerCode"
+                           placeholder="BUYER #">
+                </div>
+            </div>
+
+            <div class="form-group row mt-3">
+                <label for="grandTotal" class="col-sm-3 col-form-label">Grand Total<a class="red-text">*</a></label>
+                <div class="col-sm-9">
+                    <input type="number" th:field="*{styleTable.grandTotal}" class="form-control"
+                           id="grandTotal">
+                </div>
+            </div>
+
+            <div class="form-group row mt-4 ml-auto">
+                <h6>Ex-Fty Table</h6>
+            </div>
+            <div id="exfty" class="border-left border-top border-bottom border-right ml-3 pl-3 mb-2">
+                <table>
+                    <thead>
+                    <tr class="row">
+                        <th class="col-sm-3">Destination Country<a class="red-text">*</a></th>
+                        <th class="col-sm-3">PO                 <a class="red-text">*</a></th>
+                        <th class="col-sm-3">Ex-Fty Quantity    <a class="red-text">*</a></th>
+                        <th class="col-sm-3">Ex-Fty Date        <a class="red-text">*</a></th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="exfty,exftyStat : *{styleTable.ex_ftys}" class="row">
+                        <td class="col-sm-3">
+                            <input type="text"
+                                   th:field="*{styleTable.ex_ftys[__${exftyStat.index}__].destination}"
+                                   class="form-control" id="'destination'+${exftyStat.index}"
+                                   placeholder="Country">
+                        </td>
+                        <td class="col-sm-3">
+                            <input type="text"
+                                   th:field="*{styleTable.ex_ftys[__${exftyStat.index}__].po}"
+                                   class="form-control" id="'po'+${exftyStat.index}"
+                                   placeholder="PO">
+                        </td>
+                        <td class="col-sm-3">
+                            <input type="number"
+                                   th:field="*{styleTable.ex_ftys[__${exftyStat.index}__].quantity}"
+                                   class="form-control" id="'exqty'+${exftyStat.index}">
+                        </td>
+                        <td class="col-sm-3">
+                            <input type="date"
+                                   th:field="*{styleTable.ex_ftys[__${exftyStat.index}__].exFtyDate}"
+                                   class="form-control" id="'exdate'+${exftyStat.index}">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="form-group row mt-4">
+                <label for="orderNo" class="col-sm-3 col-form-label">Order No<a class="red-text">*</a></label>
+                <div class="col-sm-9">
+                    <input type="text" th:field="*{orderNo}" class="form-control" id="orderNo"
+                           placeholder="Order No">
+                </div>
+            </div>
+            <div class="form-group row mt-4">
+                <label for="workSFile" class="col-sm-3 col-form-label">WorkStandard Excel File<a class="red-text">*</a></label>
+                <div class="col-sm-9">
+                    <input type="file" th:field="*{file}" class="form-control form-control-file" id="workSFile">
+                </div>
+            </div>
+
+            <div class="from-group row mt-3">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary btn-block" onclick="return workStandardFormValidation('insert')">Submit</button>
+                </div>
+            </div>
+        </form>
+        </fieldset>
+    </div>
+</div>
+</body>
+</html>
